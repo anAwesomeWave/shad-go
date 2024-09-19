@@ -2,6 +2,6 @@
 
 package sum
 
-func Sum(a, b int32) int32 {
+func Sum(a, b int64) int64 {
 	return a + b
 }
