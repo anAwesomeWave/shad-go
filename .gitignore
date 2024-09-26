@@ -3,3 +3,7 @@
 .vscode/
 
 /example/
+
+
+# standard binary name
+out
