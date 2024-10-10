@@ -10,8 +10,7 @@ import (
 func Reverse(input string) string {
 	var ans strings.Builder
 	ans.Grow(len(input))
-	i := len(input) - 1
-	for i >= 0 {
+	for i := len(input) - 1; i >= 0; {
 		r, sz := utf8.DecodeLastRuneInString(input[:i+1])
 		i -= max(1, sz)
 		ans.WriteRune(r)
