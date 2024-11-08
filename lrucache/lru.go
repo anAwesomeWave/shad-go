@@ -52,9 +52,7 @@ func (lc *LRUCache) Range(f func(key, value int) bool) {
 
 func (lc *LRUCache) Clear() {
 	clear(lc.keyToNode)
-	for lc.list.Len() > 0 {
-		lc.list.Remove(lc.list.Back())
-	}
+	lc.list = list.New()
 }
 
 func New(cap int) Cache {
