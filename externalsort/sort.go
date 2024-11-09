@@ -126,14 +126,14 @@ func Sort(w io.Writer, in ...string) error {
 		lReader := NewReader(rfile)
 		data := []string{}
 		for {
-			newStr, err := lReader.ReadLine()
-			if err == io.EOF && len(newStr) == 0 {
+			newStr, readerErr := lReader.ReadLine()
+			if readerErr == io.EOF && len(newStr) == 0 {
 				break
 			}
 			data = append(data, newStr)
 		}
-		if err := rfile.Close(); err != nil {
-			return err
+		if fileErr := rfile.Close(); fileErr != nil {
+			return fileErr
 		}
 		if len(data) == 0 {
 			continue
@@ -156,13 +156,12 @@ func Sort(w io.Writer, in ...string) error {
 	readers := make([]LineReader, 0, len(in))
 	for _, filePath := range in {
 		file, err := os.OpenFile(filePath, os.O_RDONLY, 'r')
-		defer file.Close()
 		if err != nil {
 			return err
 		}
+		defer file.Close()
 		readers = append(readers, NewReader(file))
 	}
 	lWriter := NewWriter(w)
 	return Merge(lWriter, readers...)
-
 }
